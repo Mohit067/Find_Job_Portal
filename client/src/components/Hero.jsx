@@ -1,6 +1,22 @@
+import { useContext, useRef } from "react";
 import { assets } from "../assets/assets";
+import { AppContext } from "../context/AppContext";
 
 export const Hero = () => {
+
+  const {setSearchFilter, setIsSearched}  = useContext(AppContext);
+
+  const titleRef = useRef(null);
+  const locationRef = useRef(null);
+
+  const onSearch = () => {
+    setSearchFilter({
+      title: titleRef.current.value,
+      location: locationRef.current.value
+    });
+    setIsSearched(true);
+  }
+
   return (
     <div className="max-w-6xl max-auto m-auto   ">
       <div className=" mt-9 mb-9 rounded-md bg-gradient-to-r from-purple-800 via-pink-600 to-amber-500  py-16 px-6 flex justify-center">
@@ -29,6 +45,7 @@ export const Hero = () => {
                 type="text"
                 placeholder="Search for jobs"
                 className="w-full text-gray-700 text-sm sm:text-base outline-none"
+                ref={titleRef}
               />
             </div>
 
@@ -43,11 +60,12 @@ export const Hero = () => {
                 type="text"
                 placeholder="Location"
                 className="w-full text-gray-700 text-sm sm:text-base outline-none"
+                ref={locationRef}
               />
             </div>
 
             {/* Search Button */}
-            <button className="px-6 py-2 rounded text-white m-1 bg-blue-600 ml-7">
+            <button onClick={onSearch} className="px-6 py-2 rounded text-white m-1 bg-blue-600 ml-7">
               Search
             </button>
           </div>

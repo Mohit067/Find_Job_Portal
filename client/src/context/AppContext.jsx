@@ -1,10 +1,16 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
 export const AppContext = createContext();
 
 export const AppContextProvider = ({children}) => {
+    
+    const [searchFilter, setSearchFilter] = useState();
+
+    const [isSearched, setIsSearched] = useState();
+    
     const value = {
-        
+        searchFilter, setSearchFilter,
+        isSearched, setIsSearched
     };
 
 
@@ -13,5 +19,4 @@ export const AppContextProvider = ({children}) => {
             {children}
         </AppContext.Provider>
     )
-
 }
