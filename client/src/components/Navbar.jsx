@@ -8,7 +8,7 @@ export const Navbar = () => {
   const {user} = useUser();
 
   return (
-    <div className="w-full bg-white shadow-md">
+    <div className="w-full bg-white shadow-md ">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
         {/* Logo */}
         <img src={assets.logo} alt="Logo" className="h-10 cursor-pointer" />
@@ -16,7 +16,7 @@ export const Navbar = () => {
         {user ? <div className="flex items-center gap-3">
           <Link to={'/applications'}>Applied Job</Link>
           <p>|</p>
-          <p>Hi, {user.firstName+" "+user.lastName}</p>
+          <p className="hidden sm:block">Hi, {user.firstName+" "+user.lastName}</p>
           <UserButton />
         </div> : (
           <div className="space-x-4">
