@@ -1,7 +1,11 @@
 import React from "react";
 import { assets } from "../assets/assets";
+import { useNavigate } from "react-router-dom";
 
 const JobCard = ({ job }) => {
+
+  const navigate = useNavigate();
+
   return (
     <div className="bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 p-5 flex flex-col justify-between">
       
@@ -40,10 +44,13 @@ const JobCard = ({ job }) => {
 
       {/* Buttons: Always at bottom */}
       <div className="flex gap-3 mt-auto">
-        <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 font-medium cursor-pointer">
+        <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 font-medium cursor-pointer"
+        onClick={() => {navigate(`/apply-job/${job._id}`); scrollTo(0,0)}}
+        >
           Apply Now
         </button>
-        <button className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-lg transition-colors duration-200 font-medium cursor-pointer">
+        <button className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-lg transition-colors duration-200 font-medium cursor-pointer"
+        onClick={() => {navigate(`/apply-job/${job._id}`); scrollTo(0,0)}}>
           Learn More
         </button>
       </div>
