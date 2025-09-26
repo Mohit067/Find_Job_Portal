@@ -6,6 +6,8 @@ import { Navbar } from '../components/Navbar';
 import { assets } from '../assets/assets';
 import kconvert from 'k-convert';
 import moment from 'moment';
+import JobCard from '../components/JobCard';
+import Footer from '../components/Footer';
 export const Applyjob = () => {
 
   const { id } = useParams();
@@ -67,7 +69,7 @@ export const Applyjob = () => {
             </div>
           </div>
 
-          <div className='flex lg:flex-row justify-between items-start'>
+          <div className='flex flex-col lg:flex-row justify-between items-start'>
             <div className='w-full lg:w-2/3'>
               <h2 className='font-bold text-2xl mb-4'>Job Description</h2>
               <div className='rich-text' dangerouslySetInnerHTML={{__html:jobData.description}}></div>
@@ -75,9 +77,15 @@ export const Applyjob = () => {
                 Apply Now
               </button>
             </div>
+            {/* write section for more jobs */}
+            <div className='w-full lg:w-1/3 mt-8 lg:mt-0 lg:ml-8 space-y-5'>
+              <h2>More jobs from {jobData.companyId.name}</h2>
+              {jobs.filter( (job) => job._id !== jobData._id && job.companyId._id === jobData.companyId._id).filter( job => true).slice(0,4).map( (job) => <JobCard job={job} key={job._id}/>)}
+            </div>
           </div>
         </div>
       </div>
+      <Footer />
     </>
   ) : (
     <Loading />
