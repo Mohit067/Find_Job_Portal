@@ -81,7 +81,7 @@ const AddJobs = () => {
           placeholder="2500"
         />
       </div>
-      <button className="w-28 py-3 mt-4 bg-black text-white rounded">ADD</button>
+      <button className="w-28 py-3 mt-4 bg-black text-white rounded cursor-pointer">ADD</button>
     </form>
   );
 };
