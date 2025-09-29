@@ -1,6 +1,6 @@
 import React from "react";
 import { assets } from "../assets/assets";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
 
@@ -45,6 +45,9 @@ const Dashboard = () => {
                             <p className="max-sm:hidden">View-Applications</p>
                         </NavLink>
                     </ul>
+                </div>
+                <div className="flex-1 p-5">
+                    <Outlet />
                 </div>
             </div>
         </div>
