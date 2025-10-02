@@ -11,7 +11,7 @@ export const clerkWebhooks = async (req, res) => {
         await whook.verify(JSON.stringify(req.body), {
             "svix-id": req.headers["svix-id"],
             "svix-timestamp": req.headers["svix-timestamp"],
-            "webhook-signature": req.headers["webhook-signature"]
+            "svix-signature": req.headers["svix-signature"]
         });
 
         //getting data from request body
@@ -21,7 +21,7 @@ export const clerkWebhooks = async (req, res) => {
             case 'user.created':{
                 const userData = {
                     _id: data.id,
-                    email: data.email_addresses[0].email_addresses,
+                    email: data.email_addresses[0].email_address,
                     name: data.first_name+" "+data.last_name,
                     image: data.image_url,
                     resume: ''
@@ -41,7 +41,7 @@ export const clerkWebhooks = async (req, res) => {
                 break;
             }
             case 'user.deleted':{
-                await User.findOneAndDelete(data.id)
+                await User.findByIdAndDelete(data.id);
                 res.json({});
                 break;
             }
