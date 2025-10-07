@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { assets } from "../assets/assets";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
@@ -7,8 +7,21 @@ const Dashboard = () => {
 
     const navigate = useNavigate();
 
-    const {companyData} = useContext(AppContext);
+    const {companyData, setCompanyData, setCompanyToken} = useContext(AppContext);
 
+    // funtion to logout for company
+    const logout = () => {
+        setCompanyToken(null);
+        localStorage.removeItem('companyToken');
+        setCompanyData(null);
+        navigate("/")
+    }
+
+    useEffect(() => {
+        if(companyData){
+            navigate('/dashboard/manage-jobs')
+        }
+    }, [companyData])
     return (
         <div className="min-h-screen">
             {/* navbar for Recruiter pannel */}
@@ -22,7 +35,7 @@ const Dashboard = () => {
                                 <img className="w-8 border rounded-full" src={companyData.image} alt="" />
                                 <div className="absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-12 cursor-pointer">
                                     <ul className="border border-gray-300 list-none m-1 p-2 bg-white rounded-md text-sm">
-                                        <li className="py-1 px-2 cursor-pointer pr-4">Logout</li>
+                                        <li onClick={logout} className="py-1 px-2 cursor-pointer pr-4">Logout</li>
                                     </ul>
                                 </div>
                             </div>
