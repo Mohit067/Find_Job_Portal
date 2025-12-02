@@ -32,7 +32,7 @@ export const AppContextProvider = ({children}) => {
             const {data} = await axios.get(backendUrl+'/api/jobs');
             if(data.success){
                 setJobs(data.jobs);
-                console.log(data.jobs)
+                // console.log(data.jobs)
             } else {
                 toast.error(data.message)
             }
@@ -48,7 +48,7 @@ export const AppContextProvider = ({children}) => {
 
             if(data.success){
                 setCompanyData(data.company);
-                console.log(data)
+                // console.log(data)
             } else {
                 toast.error(data.message);
             }   
@@ -65,7 +65,7 @@ export const AppContextProvider = ({children}) => {
             const {data} = await axios.get(backendUrl+'/api/users/user',
                 {headers: {Authorization: `Bearer ${token}`}}
             );
-            console.log(data)
+            // console.log(data)
             if(data.success){
                 setUserData(data.user)
             } else {
@@ -104,7 +104,10 @@ export const AppContextProvider = ({children}) => {
         showRucruiterLogin, setShowRucruiterLogin,
         companyToken, setCompanyToken,
         companyData, setCompanyData,
-        backendUrl
+        backendUrl,
+        userApplication, setUserApplication,
+        userData, setUserData,
+        fetchUserData
     };
 
 

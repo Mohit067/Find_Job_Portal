@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { AppContext } from '../context/AppContext';
 import Loading from '../components/Loading';
 import { Navbar } from '../components/Navbar';
@@ -16,8 +16,10 @@ export const ApplyJob = () => {
 
   const [jobData, setJobData] = useState(null);
 
-  const { jobs, backendUrl } = useContext(AppContext);
+  const { jobs, backendUrl, userData, userApplication } = useContext(AppContext);
  
+  const navigate = useNavigate();
+
   const fetchJob = async () => {
     try {
       const {data} = await axios.get(backendUrl+`/api/jobs/${id}`);
@@ -29,6 +31,23 @@ export const ApplyJob = () => {
       }
     } catch (error) {
       toast.error(error.message);
+    }
+  }
+
+  // what will be happen when user apply a job
+  const applyHandler = async () => {
+    try {
+      
+      if(!userData){
+        return toast.error('Login to apply this job')
+      }
+      if(!userData.resume){
+        navigate('/applications')
+        return toast.error('Upload resume to apply')
+      }
+
+    } catch (error) {
+      
     }
   }
 
@@ -68,7 +87,7 @@ export const ApplyJob = () => {
               </div>
             </div>
             <div className='flex flex-col justify-center text-end text-sm max-md:mx-auto max-md:text-center'>
-                <button className=" bg-blue-600 hover:bg-blue-700 text-white px-10 py-2.5 rounded-lg transition-colors duration-200 font-medium cursor-pointer">
+                <button onClick={applyHandler} className=" bg-blue-600 hover:bg-blue-700 text-white px-10 py-2.5 rounded-lg transition-colors duration-200 font-medium cursor-pointer">
                 Apply Now
               </button>
               <p className='mt-1 text-gray-600'>Posted {moment(jobData.date).fromNow()}</p>
@@ -79,7 +98,7 @@ export const ApplyJob = () => {
             <div className='w-full lg:w-2/3'>
               <h2 className='font-bold text-2xl mb-4'>Job Description</h2>
               <div className='rich-text' dangerouslySetInnerHTML={{__html:jobData.description}}></div>
-              <button className=" bg-blue-600 hover:bg-blue-700 text-white px-10 py-2.5 rounded-lg transition-colors duration-200 font-medium cursor-pointer mt-10">
+              <button onClick={applyHandler} className=" bg-blue-600 hover:bg-blue-700 text-white px-10 py-2.5 rounded-lg transition-colors duration-200 font-medium cursor-pointer mt-10">
                 Apply Now
               </button>
             </div>
