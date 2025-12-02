@@ -8,13 +8,12 @@ export const getUserData = async (req, res) => {
     try {
         const user = await User.findById(userId);
         if(!user){
-            res.json({success: false, message: "User Not Found"})
+            return res.json({success: false, message: "User Not Found"})
         }
         res.json({success: true, user})
     } catch (error) {
         res.json({success: false, message: error.message})
     }
-
 }
 
 // apply for a job
